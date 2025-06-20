@@ -1,5 +1,6 @@
 package com.example.learnsmarter.pages
 
+import android.content.res.Configuration
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -38,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
@@ -58,6 +60,17 @@ fun Main(
 
     val context = LocalContext.current
     val isLoggedIn = FirebaseAuth.getInstance().currentUser != null
+    val configuration = LocalConfiguration.current
+    val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
+
+    val screenWidth = configuration.screenWidthDp
+    val screenHeight = configuration.screenHeightDp
+    val isTablet = screenWidth >= 600
+
+    var imageSize = if (isTablet) 230.dp else 160.dp
+    if(isLandscape && !isTablet){
+        imageSize = 200.dp
+    }
 
     if(!isLoggedIn){
         LaunchedEffect(Unit) {
@@ -81,7 +94,6 @@ fun Main(
                 containerColor = LightColorScheme.primaryContainer,
                 modifier = Modifier
                     .fillMaxWidth()
-
 
             ) {
                 NavigationBarItem(
@@ -116,48 +128,77 @@ fun Main(
             }
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding),
-
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
+        if(!isLandscape) {
             Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .background(LightColorScheme.primary)
-                .padding(top=5.dp),
-            verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding),
 
-        ) {
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight()
+                        .background(LightColorScheme.primary)
+                        .padding(top = 5.dp),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+
+                ) {
 
 
-                val imageModifier = Modifier
-                    .size(150.dp)
-                    .border(BorderStroke(4.dp, Color.Black), shape = CircleShape)
-                    .clip(CircleShape)
+                    val imageModifier = Modifier
+                        .size(imageSize)
+                        .border(BorderStroke(4.dp, Color.Black), shape = CircleShape)
+                        .clip(CircleShape)
 
+                    Image(
+                        painter = painterResource(id = R.drawable.icon_appandroid),
+                        contentDescription = "Welcome Image",
+                        contentScale = ContentScale.Crop,
+
+                        modifier = imageModifier
+                    )
+                    Spacer(modifier = Modifier.height(15.dp))
+                    Text(
+                        text = "Welcome to Flashcard App!",
+                        fontSize = 25.sp,
+                        fontStyle = FontStyle.Normal,
+                        modifier = Modifier
+                            .padding(all = 5.dp),
+                        color = LightColorScheme.onBackground
+                    )
+                }
+            }
+        }
+        else{
+            Row(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
+                    .background(LightColorScheme.primary),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ) {
                 Image(
-                    painter = painterResource(id = R.drawable.icon_appandroid), //
+                    painter = painterResource(id = R.drawable.icon_appandroid),
                     contentDescription = "Welcome Image",
                     contentScale = ContentScale.Crop,
-                    modifier = imageModifier
+                    modifier = Modifier
+                        .size(150.dp)
+                        .border(BorderStroke(4.dp, Color.Black), shape = CircleShape)
+                        .clip(CircleShape)
                 )
-                Spacer(modifier = Modifier.height(15.dp))
                 Text(
                     text = "Welcome to Flashcard App!",
-                    fontSize = 25.sp,
+                    fontSize = 28.sp,
                     fontStyle = FontStyle.Normal,
-                    modifier = Modifier
-                        .padding(all = 5.dp),
                     color = LightColorScheme.onBackground
                 )
-         }
         }
     }
 
+ }
 }

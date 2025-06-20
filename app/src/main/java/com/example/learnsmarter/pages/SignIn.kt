@@ -60,7 +60,7 @@ fun SignInScreen(
         ) {
 
             Text(
-                text = "Welcome to LearnSmarter",
+                text = "Welcome to Flashcard app",
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onSurface
             )

@@ -1,5 +1,6 @@
 package com.example.learnsmarter
 
+import FlashcardPager
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -10,6 +11,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -17,7 +20,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.learnsmarter.pages.AddFlashcardPage
-import com.example.learnsmarter.pages.Flashcards
 
 //pages
 import com.example.learnsmarter.pages.Home
@@ -94,10 +96,17 @@ class MainActivity : ComponentActivity() {
 
                 }
                 composable("AddFlashcard"){
-                    AddFlashcardPage(flashcardViewModel)
+                    AddFlashcardPage(flashcardViewModel,navController)
                 }
                 composable("Flashcards"){
-                    Flashcards(flashcardViewModel)
+
+                    LaunchedEffect(Unit) {
+                        flashcardViewModel.loadFlashcards()
+                    }
+                    val flashcards = flashcardViewModel.flashcards.collectAsState()
+                    val flashcardsList = flashcards.value
+
+                    FlashcardPager(navController,flashcardsList)
                 }
             }
         }
