@@ -1,8 +1,13 @@
 plugins {
-    alias(libs.plugins.android.application)
+//    alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
     id("kotlin-kapt")
+
+    id("com.android.application")
+    id("com.google.gms.google-services")
+//    id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -26,6 +31,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {
@@ -45,17 +51,29 @@ dependencies {
 //    implementation(libs.androidx.activity.)
     implementation("androidx.navigation:navigation-compose:2.9.0")
 
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-runtime:2.7.1")
+    implementation("androidx.room:room-ktx:2.7.1")
+    kapt("androidx.room:room-compiler:2.7.1")
 
     // lifecycle
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.1")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.9.1")
 
     // coroutines -> function suspending
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
+    implementation("com.google.firebase:firebase-auth")
+//    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.android.gms:play-services-auth")
+
+    implementation("androidx.compose.runtime:runtime-livedata:1.6.0")
+
+    //http
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

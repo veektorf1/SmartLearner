@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "459859316063",
+    "project_id": "learnsmarter-171ae",
+    "storage_bucket": "learnsmarter-171ae.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:459859316063:android:f5a1dff29818fb7c087aea",
+        "android_client_info": {
+          "package_name": "com.example.learnsmarter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "459859316063-a0tpl5goidr6ep2kvo8uoe1gqk7dckpo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.learnsmarter",
+            "certificate_hash": "44f178affe151ab2e7f733c2d5145c5421c4aa3f"
+          }
+        },
+        {
+          "client_id": "459859316063-5sfc5pr61vs5lg0v8c86dtdr24vorrad.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBe2EPvn5tjmC8_jvyKVZEZQi5T0V7U048"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "459859316063-5sfc5pr61vs5lg0v8c86dtdr24vorrad.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

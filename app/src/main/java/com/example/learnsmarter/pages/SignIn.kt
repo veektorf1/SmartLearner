@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.learnsmarter.R
+import com.google.firebase.auth.FirebaseAuth
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -24,6 +25,11 @@ fun SignInScreen(
     onSignInClick: () -> Unit
 ) {
     val context = LocalContext.current
+    val isLoggedIn = FirebaseAuth.getInstance().currentUser != null // variable to check whether useer is logged in
+    if (isLoggedIn ){
+        navController.navigate("Main")
+    }
+
 
     Scaffold(
         topBar = {
